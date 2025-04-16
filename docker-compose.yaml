@@ -50,6 +50,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+    
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -76,6 +77,31 @@ services:
     ports: 
         - "5432:5432"
 
+
+
+  streamlit:
+    build:
+      context: ./airflow/streamlit
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    volumes:
+      # - ${AIRFLOW_PROJ_DIR:-.}/airflow/dags:/app/dags
+      # - ${AIRFLOW_PROJ_DIR:-.}/airflow/streamlit:opt/airflow/streamlit
+      - ./airflow/streamlit:/streamlit
+    depends_on:
+      - postgres # Make sure Postgres is running and healthy before starting Streamlit
+    #       condition: service_healthy
+      # airflow-webserver:
+      #   condition: service_healthy
+      # airflow-scheduler:
+      #   condition: service_healthy
+      # airflow-triggerer:
+      #   condition: service_healthy
+    env_file:
+      - .env
+
+      
   redis:
     # Redis is limited to 7.2-bookworm due to licencing change
     # https://redis.io/blog/redis-adopts-dual-source-available-licensing/
