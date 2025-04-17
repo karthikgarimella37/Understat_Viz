@@ -50,9 +50,10 @@ def load_data():
                         s.situation, s.shottype, s.h_team, s.a_team
                     FROM public.player_stats p
                     LEFT JOIN public.shots_data s ON s.player_id = p.id
-                    LIMIT 10000;
+                    limit 100000;
                     '''
             df = pd.read_sql(query, con=conn.connection)
+            df['season'] = df['season'].astype('Int64') 
 
         return df
     except Exception as e:
@@ -131,6 +132,7 @@ legend_labels = []
 # Plot shots by shot type
 for shot_type in shot_types_unique:
     sub_df = filtered_df[filtered_df['result'] == shot_type]
+    df_goals = sub_df[sub_df['result'] == 'Goal'].shape
     
     face_color = shot_type_colors[shot_type]
 
@@ -150,7 +152,12 @@ for shot_type in shot_types_unique:
 
 
 
-title_text = f"{player_filter} Shot Map"
+if selected_result_types == ['Goal']:
+    total_goals = filtered_df.shape[0]
+    title_text = f"{player_filter} Shot Map\nTotal Goals: {total_goals}"
+else:
+    total_shots = filtered_df.shape[0]
+    title_text = f"{player_filter} Shot Map\nTotal Shots: {total_shots}"
 subtitle_parts = []
 if season_filter != "All":
     subtitle_parts.append(f"Season: {season_filter}")
