@@ -44,7 +44,6 @@ def load_data():
         engine = postgres_connection(DEFAULT_ENV_PATH)
         
         with engine.connect() as conn:
-            # result = conn.execute(text("SELECT * FROM public.shots_data limit 5;"))
             query = '''
                     SELECT 
                         p.player_name, s.season, p.shots, s.x, s.y, s.xg, s.result,
@@ -68,32 +67,27 @@ if df is None or df.empty:
     st.warning("No data loaded. Check your database connection or query.")
     st.stop()
 
-# st.write(df.head())
+
 st.sidebar.header("🎯 Shot Map Filters")
 player_search = st.sidebar.text_input("🔍 Search Player")
 player_options = sorted(df[df['player_name'].str.contains(player_search, case=False, na=False)]['player_name'].unique()) if player_search else sorted(df['player_name'].dropna().unique())
 player_filter = st.sidebar.selectbox("Select Player", player_options)
 player_df = df[df['player_name'] == player_filter]
 
-# Sidebar: Optional Shot Types
-# all_shot_types = sorted(player_df['shottype'].dropna().unique())
-# selected_shot_types = st.sidebar.multiselect("Shot Types (optional)", options=all_shot_types, default=all_shot_types)
-
-
 all_result_types = sorted(player_df['result'].dropna().unique())
 selected_result_types = st.sidebar.multiselect("Result Types (optional)", options=all_result_types, default=all_result_types)
 
-# Sidebar: Optional Team filter (home/away)
+
 opponent_teams = sorted(pd.concat([player_df['h_team'], player_df['a_team']]).dropna().unique())
 opponent_filter = st.sidebar.selectbox("Opponent Team (optional)", ["All"] + opponent_teams)
 
-# Sidebar: Optional Season filter
+
 seasons = sorted(player_df['season'].dropna().unique())
 season_filter = st.sidebar.selectbox("Season (optional)", ["All"] + seasons)
 
-# Apply filters
+
 filtered_df = player_df.copy()
-# filtered_df = filtered_df[filtered_df['shottype'].isin(selected_shot_types)]
+
 filtered_df = filtered_df[filtered_df['result'].isin(selected_result_types)]
 
 
@@ -138,28 +132,9 @@ legend_labels = []
 for shot_type in shot_types_unique:
     sub_df = filtered_df[filtered_df['result'] == shot_type]
     
-    # For each shot type, plot with separate markers for goals vs. non-goals
-    # for result_type in sub_df['result'].dropna().unique():
-    # result_df = sub_df[(sub_df['result'] == result_type) & (sub_df['shottype']== shot_type)]
-    # marker = marker_map[shot_type]
-    # color = result_colors.get(result_type, '#7f7f7f')
-
-
-        
-    # Skip if there are no shots of this type and result
-    # if result_df.empty:
-    #     continue
-    
-    # Use shot type for marker and color, result for edgecolor
-    # marker = marker_map[shot_type]
     face_color = shot_type_colors[shot_type]
-    # edge_color = result_colors.get(result_type, '#303030')
 
-    
-    # Create label: Shot Type (Result)
-    # label = f"{result_type}"
-    
-    # Plot the shots
+
     scatter = pitch.scatter(
         sub_df['x'].astype(float) * 100,
         sub_df['y'].astype(float) * 100,
@@ -174,7 +149,7 @@ for shot_type in shot_types_unique:
     
 
 
-# Plot title
+
 title_text = f"{player_filter} Shot Map"
 subtitle_parts = []
 if season_filter != "All":
@@ -198,36 +173,24 @@ for shot_type in shot_types_unique:
                               markersize=10, label=shot_type, linestyle='None')
     shot_type_handles.append(shot_handle)
 
-# Create custom legend for xG sizes
+
 xg_sizes = [0.1, 0.3, 0.5, 0.7, 0.9]
 xg_handles = []
 for xg in xg_sizes:
-    size = xg * 720 / 5  # Divide by a factor to make the legend less overwhelming
+    size = xg * 720 / 5  
     xg_handle = mlines.Line2D([], [], color='white', marker='o', 
                             markersize=size**0.5, label=f'xG: {xg}', linestyle='None')
     xg_handles.append(xg_handle)
 
-# Position legends
 shot_legend = ax.legend(handles=shot_type_handles, loc='upper right', 
                        title='Shot Types', frameon=False, fontsize=10, 
                        bbox_to_anchor=(1.1, 1.05),
                        labelcolor='white', title_fontsize=12)
 ax.add_artist(shot_legend)
 
-# Add xG legend below the shot type legend
+
 xg_legend = ax.legend(handles=xg_handles, loc='upper center', 
                      bbox_to_anchor=(1.05, 0.8), frameon=False, fontsize=10, 
                      labelcolor='white', title='Expected Goals (xG)', title_fontsize=12)
-
-# Add explanation text
-# ax.text(
-#     x=5, 
-#     y=5, 
-#     s="Color = Shot Type\nSize = Expected Goals (xG)",
-#     color='white',
-#     fontsize=12,
-#     ha='left',
-#     va='bottom'
-# )
 
 st.pyplot(fig)
