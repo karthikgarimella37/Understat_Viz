@@ -69,10 +69,10 @@ Understat.com (Scraped Data)
    ```
 
 3. **Run Airflow**  
-   Access the Airflow UI at `localhost:8080`, trigger the DAG to start scraping.
+   Access the Airflow UI at `localhost:8080`, trigger the DAG to start scraping and uploading data to postgres (if not already).
 
-4. **Launch Streamlit App**  
-   Once data is loaded:
+4. **Streamlit App**  
+   Once data is loaded, the streamlit app should be ready at `localhost:8501`. If not, run:
    ```bash
    streamlit run streamlit_app.py
    ```
