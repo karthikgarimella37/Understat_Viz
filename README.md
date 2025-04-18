@@ -9,16 +9,6 @@ Great! I’ll use the contents of your `Understat_Viz.zip` and expand on the exi
 
 **Understat_Viz** is a data pipeline and visualization dashboard that extracts and analyzes soccer players' shot data from the [Understat](https://understat.com/) website. This project focuses on EPL (English Premier League) players and generates interactive shot maps to support performance analysis for players, analysts, and fans.
 
-<details>
-<p align="center">
-  <img src="/images/SAT 4650 Final Project slide 2.jpg" alt="Slide 2"/>
-  <img src="/images/SAT 4650 Final Project slide 3.jpg" alt="Slide 3"/>
-  <img src="/images/SAT 4650 Final Project slide 4.jpg" alt="Slide 4"/>
-  <img src="/images/SAT 4650 Final Project slide 5.jpg" alt="Slide 5"/>
-  <img src="/images/SAT 4650 Final Project slide 6.jpg" alt="Slide 6"/>
-  <img src="/images/SAT 4650 Final Project slide 7.jpg" alt="Slide 7"/>
-</p>
-</details>
 
 ---
 
@@ -121,16 +111,20 @@ Presentation slides from the final project demo:
 - Slide 2: Overview
 - Slide 3–7: Data pipeline, architecture, visualizations
 
+<details>
+<p align="center">
+  <img src="/images/SAT 4650 Final Project slide 2.jpg" alt="Slide 2"/>
+  <img src="/images/SAT 4650 Final Project slide 3.jpg" alt="Slide 3"/>
+  <img src="/images/SAT 4650 Final Project slide 4.jpg" alt="Slide 4"/>
+  <img src="/images/SAT 4650 Final Project slide 5.jpg" alt="Slide 5"/>
+  <img src="/images/SAT 4650 Final Project slide 6.jpg" alt="Slide 6"/>
+  <img src="/images/SAT 4650 Final Project slide 7.jpg" alt="Slide 7"/>
+</p>
+</details>
 (See image previews above 👆)
 
 ---
 
-## 🙌 Contributors
-
-- **Karthik Garimella** – Data Engineering, Dashboard, and Project Lead  
-- *[Add other teammates if applicable]*
-
----
 
 ## 📝 License
 
