@@ -1,10 +1,6 @@
-Great! I’ll use the contents of your `Understat_Viz.zip` and expand on the existing `README.md` you started. Here's a detailed version with common sections: project description, features, architecture, setup instructions, usage, and credits.
-
----
-
 ### 📘 `README.md` for **Understat_Viz**
 
-```markdown
+
 # ⚽ Understat_Viz
 
 **Understat_Viz** is a data pipeline and visualization dashboard that extracts and analyzes soccer players' shot data from the [Understat](https://understat.com/) website. This project focuses on EPL (English Premier League) players and generates interactive shot maps to support performance analysis for players, analysts, and fans.
@@ -92,12 +88,9 @@ Understat.com (Scraped Data)
 Understat_Viz/
 ├── airflow/
 │   ├── dags/
-│   └── Dockerfile
-├── data/
-│   └── staging/ & final tables
-├── db/
-│   └── init.sql
-├── streamlit_app.py
+│   ├── streamlit/
+│       └── main.py  
+│       └── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
 └── README.md
@@ -108,12 +101,14 @@ Understat_Viz/
 ## 📸 Slides Preview
 
 Presentation slides from the final project demo:
-- Slide 2: Overview
-- Slide 3–7: Data pipeline, architecture, visualizations
+
 
 <details>
 <p align="center">
+- Slide 2: Overview
   <img src="/images/SAT 4650 Final Project slide 2.jpg" alt="Slide 2"/>
+- Slide 3–7: Data pipeline, architecture, visualizations
+
   <img src="/images/SAT 4650 Final Project slide 3.jpg" alt="Slide 3"/>
   <img src="/images/SAT 4650 Final Project slide 4.jpg" alt="Slide 4"/>
   <img src="/images/SAT 4650 Final Project slide 5.jpg" alt="Slide 5"/>
@@ -121,7 +116,6 @@ Presentation slides from the final project demo:
   <img src="/images/SAT 4650 Final Project slide 7.jpg" alt="Slide 7"/>
 </p>
 </details>
-(See image previews above 👆)
 
 ---
 
@@ -131,13 +125,3 @@ Presentation slides from the final project demo:
 MIT License. See `LICENSE` file for more details.
 
 ---
-
-## 📬 Feedback
-
-Feel free to open issues or PRs if you'd like to contribute or have ideas!
-
-```
-
----
-
-Let me know if you'd like this converted into a `README.md` file and zipped back for upload—or if you'd like to customize any part of it!
